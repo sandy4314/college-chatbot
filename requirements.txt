@@ -1,6 +1,6 @@
-Flask==2.x.x
-gunicorn==20.x.x
-transformers==4.x.x
-torch==1.x.x
-sentence-transformers==2.x.x
-flask-cors==3.x.x
+Flask
+gunicorn
+transformers
+torch
+sentence-transformers
+flask-cors
