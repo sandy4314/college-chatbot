@@ -7,17 +7,20 @@ function Chat() {
 
   const sendMessage = async () => {
     if (!message.trim()) return;
-
+  
     const userMessage = { sender: "You", text: message };
-
+  
     // Append user message first
     setChatHistory((prevHistory) => [...prevHistory, userMessage]);
-
+  
     try {
-      const response = await axios.post("http://127.0.0.1:5000/chat", { message });
-
+      // Use the API URL from .env file
+      const apiUrl = process.env.REACT_APP_API_URL || "http://127.0.0.1:5000"; // Fallback to local URL if not defined
+  
+      const response = await axios.post(`${apiUrl}/chat`, { message });
+  
       const botReply = { sender: "Bot", text: response.data.reply || "No response received." };
-
+  
       // Append bot response
       setChatHistory((prevHistory) => [...prevHistory, botReply]);
     } catch (error) {
@@ -27,10 +30,10 @@ function Chat() {
         { sender: "Bot", text: "Error: Unable to fetch response. Try again." }
       ]);
     }
-
+  
     setMessage("");
   };
-
+  
   return (
     <div className="flex flex-col items-center justify-center h-screen w-full bg-gradient-to-r from-pink-300 to-blue-300">
       <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 mb-6  text-center">
